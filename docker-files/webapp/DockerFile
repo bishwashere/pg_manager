@@ -18,6 +18,8 @@ WORKDIR /home/app_user/pg_manager/src
 
 ENV PYTHONPATH "/home/app_user/pg_manager/src"
 
+RUN django-admin.py startproject webapp /home/app_user/pg_manager/src
+
 # Entry point
 COPY ./webapp/config/*entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
