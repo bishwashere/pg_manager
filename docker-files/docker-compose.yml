@@ -1,0 +1,27 @@
+version: '3.6'
+services:
+  webapp:
+    build:
+      context: ./
+      dockerfile: ./webapp/Dockerfile
+    image: webapp_image:1
+    container_name: webapp_container
+    depends_on:
+      - mysql_service
+    command: sh
+    ports:
+      - "9876:9876"
+    volumes:
+      - ./src:/home/app_user/pg_manager/src
+    environment:
+      # - MODULE=webapp
+      # - STATUS=test
+    stdin_open: true #  docker attach container_id
+    tty: true #  docker attach container_id
+
+networks:
+  default:
+    external:
+      name: mynet
+# Run below command to create network
+# docker network create --driver bridge mynet
