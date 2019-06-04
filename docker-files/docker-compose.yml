@@ -16,12 +16,10 @@ services:
     environment:
       # - MODULE=webapp
       # - STATUS=test
-    stdin_open: true #  docker attach container_id
-    tty: true #  docker attach container_id
+    stdin_open: true
+    tty: true
 
 networks:
   default:
     external:
       name: mynet
-# Run below command to create network
-# docker network create --driver bridge mynet
