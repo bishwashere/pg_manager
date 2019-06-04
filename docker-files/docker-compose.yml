@@ -1,9 +1,20 @@
 version: '3.6'
 services:
+  mysql_service:
+    image: mysql:8
+    container_name: mysql_container
+    command: sh
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    stdin_open: true
+    tty: true
+
   webapp:
     build:
       context: ./
-      dockerfile: ./webapp/Dockerfile
+      dockerfile: ./webapp/DockerFile
     image: webapp_image:1
     container_name: webapp_container
     depends_on:
@@ -14,12 +25,7 @@ services:
     volumes:
       - ./src:/home/app_user/pg_manager/src
     environment:
-      # - MODULE=webapp
-      # - STATUS=test
+      - MODULE=webapp
+      - STATUS=test
     stdin_open: true
     tty: true
-
-networks:
-  default:
-    external:
-      name: mynet
