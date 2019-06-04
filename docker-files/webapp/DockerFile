@@ -1,0 +1,19 @@
+FROM python:3.6-alpine3.9
+
+RUN mkdir /config
+COPY ./worker/requirements.pip /config/
+
+RUN apk update && \
+# Basic Necessary packages for build
+    apk --no-cache add --virtual build-deps-alpine build-base && \
+# Install pip packages
+    pip install -r /config/requirements.pip --no-cache-dir && \
+
+# Create directories necessary for app
+RUN mkdir -p /home/app_user/pg_manager
+COPY ./src  /home/app_user/pg_manager/src
+
+# Switch to project directory
+WORKDIR /home/app_user/pg_manager/src
+
+ENV PYTHONPATH "/home/app_user/pg_manager/src"
